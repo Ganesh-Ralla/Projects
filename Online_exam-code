@@ -1,5 +1,5 @@
-create database exams_online;
-use exams_online;
+create database online_exams;
+use online_exams;
 
 -- Create users table
 create table users (
