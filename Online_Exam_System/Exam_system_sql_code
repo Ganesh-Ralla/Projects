@@ -1,0 +1,62 @@
+create database online_exams;
+use online_exams;
+
+-- Create users table
+create table users (
+    user_id int primary key,
+    username varchar(50) not null,
+    fullname varchar(50),
+    email varchar(100),
+    password varchar(30)
+);
+
+-- Create courses table
+create table courses (
+    course_id int primary key,
+    course_name varchar(40),
+    duration varchar(40),
+    trainer varchar(40)
+);
+
+-- Create joincourse table to link users and courses
+create table joincourse (
+    join_id int primary key,
+    user_id int,
+    course_id int,
+    foreign key(user_id) references users(user_id),
+    foreign key(course_id) references courses(course_id)
+);
+
+-- Create exam table linked to courses
+create table exam (
+    exam_id int primary key,
+    exam_name varchar(50),
+    course_id int,
+    foreign key(course_id) references courses(course_id)
+);
+
+-- Create questions table linked to exam
+create table questions (
+    question_id int primary key,
+    question_text varchar(200),
+    optionA varchar(10),
+    optionB varchar(10),
+    optionC varchar(10),
+    optionD varchar(10),
+    correctoption varchar(10),
+    score int,
+    exam_id int,
+    foreign key(exam_id) references exam(exam_id)
+);
+
+-- Create result table to store exam results
+create table result (
+    result_id int primary key,
+    user_id int,
+    course_id int,
+    exam_id int,
+    score int,
+    foreign key(user_id) references users(user_id),
+    foreign key(course_id) references courses(course_id),
+    foreign key(exam_id) references exam(exam_id)
+);
